@@ -1,0 +1,45 @@
+<%= stylesheet_link_tag 'book' %>
+<%= stylesheet_link_tag 'filter_form' %>
+<%= form_tag(books_path, method: :get, class: 'filter-form') do %>
+  <%= select_tag(:category, options_for_select(['', 'Fiction', 'history', 'bio_graphical'])) %>
+  <%= submit_tag('Filter') %>
+<% end %>
+
+<div class="body">
+
+<% @books.each do |book| %>
+  <div id="obsu" style="margin-top: 100px;">
+  <div id="sekil">
+    <img src="<%= book.image_url %>" alt="" />
+  </div>
+  <div id="kitabadi">
+    <h2><%= book.name %></h2>
+  </div>
+  <div id="kimindi">
+    <p>by <%= book.author %></p>
+  </div>  
+
+  <div id="haqqinda">
+    <p><%= book.description %></p>
+  </div>
+  <div id="qiymet">
+
+  <% if book.available_book_count != 0 %>
+  <%= form_for Borrow.new, url: borrow_book_path(book), method: :post do |f| %>
+    <%= f.hidden_field :return_book, value: false %>
+    <%= f.hidden_field :borrow_date, value: Date.today %>
+    <%= f.hidden_field :return_date, value: (Date.today + 10).to_s %>
+    <%= f.hidden_field :returned_date, value: nil %>
+    <%= f.submit "Borrow", class: "btn btn-primary" %>
+  <% end %>
+<% else %>
+  <button type="button" class="btn btn-danger">Not Available</button>
+<% end %>
+
+  </div>
+</div>
+
+<% end %>
+
+
+</div>

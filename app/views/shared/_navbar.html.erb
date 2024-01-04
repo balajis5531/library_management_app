@@ -1,0 +1,65 @@
+<nav id="navigation-bar">
+  <ul class="items-container">
+    <li class="item" title="home">
+      <a href="/" class="hyper-link">
+        <div class="icon-wrapper">
+          <span class="material-icons">home</span>
+        </div>
+        <span class="item-text">Home</span>
+      </a>
+    </li>
+    <li class="item" title="book">
+      <a href="/books" class="hyper-link">
+        <div class="icon-wrapper">
+          <span class="material-icons">book</span>
+        </div>
+        <span class="item-text">Books</span>
+      </a>
+    </li>
+    <% if session[:user_id] %>
+    <li class="item" title="shopping cart">
+      <a href="/users/<%=session[:user_id]%>/borrowed_book" class="hyper-link">
+        <div class="icon-wrapper">
+          <span class="material-icons">shopping_cart</span>
+        </div>
+        <span class="item-text">Cart</span>
+      </a>
+    </li>
+
+    
+    <li class="item" title="profile">
+      <a href="/users/show" class="hyper-link">
+        <div class="icon-wrapper">
+          <span class="material-icons">person</span>
+        </div>
+        <span class="item-text">Profile</span>
+      </a>
+    </li>
+
+    <% else %>
+
+    <li class="item">
+    <a href="/login" class="hyper-link">
+      <div class="icon-wrapper">
+        <span class="material-icons">login</span> 
+      </div>
+      <span class="item-text">Sign In</span>
+    </a>
+  </li> 
+  
+  <% end %>
+
+  <% if session[:user_id] == 2%>
+  <li class="item">
+    <a href="/books/show/admin_access" class="hyper-link">
+      <div class="icon-wrapper">
+        <span class="material-icons">admin_panel_settings</span> 
+      </div>
+      <span class="item-text">Admin</span>
+    </a>
+  </li>
+  <% end %>
+</ul>
+ 
+</nav>
+

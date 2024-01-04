@@ -1,0 +1,45 @@
+<%= stylesheet_link_tag 'form' %>
+
+<%= form_for(@book) do |f| %>
+    
+    <div>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+  
+    <div>
+      <%= f.label :image_url %>
+      <%= f.text_field :image_url %>
+    </div>
+  
+    <div>
+      <%= f.label :author %>
+      <%= f.text_field :author %>
+    </div>
+  
+    <div>
+      <%= f.label :description %>
+      <%= f.text_area :description %>
+    </div>
+  
+    <div>
+      <%= f.label :year_of_release %>
+      <%= f.number_field :year_of_release %>
+    </div>
+  
+    <div>
+      <%= f.label :category %>
+      <%= f.text_field :category %>
+    </div>
+
+    <div>
+      <%= f.label :available_book_count%>
+      <%= f.number_field :available_book_count %>
+    </div>
+  
+    <div>
+      <%= f.submit 'Update Book' %>
+    </div>
+  <% end %>
+  
+  <%= link_to 'Back', books_path %>

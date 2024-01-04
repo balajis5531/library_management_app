@@ -1,0 +1,22 @@
+<%= stylesheet_link_tag 'login' %>
+
+
+
+<%= form_with(model: @user, url: users_path, method: :post) do |form| %>
+  <h2>Sign Up</h2>
+  <%= form.label :username %>
+  <%= form.text_field :username %>
+
+  <%= form.label :email %>
+  <%= form.email_field :email %>
+
+  <%= form.label :password %>
+  <%= form.password_field :password_digest %>
+
+  <%= form.label :mobile_number %>
+  <%= form.text_field :mobile_number %>
+
+  <%= form.submit 'Register' ,  class: "button"%>
+
+  <%= link_to 'Back', root_path%>  <%= link_to 'Already have account', login_path%> 
+<% end %>

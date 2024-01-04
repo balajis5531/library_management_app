@@ -1,0 +1,26 @@
+<%= stylesheet_link_tag 'book_show' %>
+<div class="container mt-4 content-container connn">
+  <div class="row">
+    <div class="col-md-6">
+      <img src = "<%= @book.image_url %>" class="image img-fluid rounded">
+    </div>
+
+    <div class="col-md-6 d-flex align-items-center justify-content-space-around con1">
+      <div>
+        <h2><%= @book.name %></h2>
+        <br>
+        <p><strong>Author:</strong> <%= @book.author %></p>
+        <br>
+        <p><strong>Year of Release:</strong> <%= @book.year_of_release %></p>
+        <br>
+        <p><strong>Category:</strong> <%= @book.category %></p>
+        <br>
+        <p><strong>Available Book Count:</strong> <%= @book.available_book_count %></p>
+        <br>
+
+        <h4>Description:</h4>
+        <p><%= @book.description %></p>
+      </div>
+    </div>
+  </div>
+</div>
