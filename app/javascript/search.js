@@ -41,5 +41,5 @@ document.addEventListener('DOMContentLoaded', function () {
 
         searchResultsContainer.appendChild(card);
       });
-  }
+  }    
 });
