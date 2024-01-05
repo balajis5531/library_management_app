@@ -1,31 +1,45 @@
-
 document.addEventListener('DOMContentLoaded', function () {
-    const books = <%=Book.all.to_json%>; // Assuming @books is an array of book objects
-  
-    const bookSearchInput = document.getElementById('bookSearch');
-    const searchResultsContainer = document.getElementById('searchResults');
-  
-    if (bookSearchInput && searchResultsContainer) {
-      bookSearchInput.addEventListener('input', function () {
-        const searchQuery = this.value.trim().toLowerCase();
-        const searchResults = books.filter(book => book.name.toLowerCase().includes(searchQuery));
-  
-        displayResults(searchResults);
-      });
-    }
-  
-    function displayResults(results) {
+  const bookSearchInput = document.getElementById('bookSearch');
+  const searchResultsContainer = document.getElementById('search_result');
+
+  if (bookSearchInput && searchResultsContainer) {
+      
+      fetch('/search')
+          .then(response => response.json())
+          .then(books => {
+              bookSearchInput.addEventListener('input', function () {
+                  const searchQuery = this.value.trim().toLowerCase();
+                  const searchResults = books.filter(book => book.name.toLowerCase().includes(searchQuery));
+
+                  displayResults(searchResults);
+              });
+          })
+          .catch(error => console.error('Error fetching book data:', error));
+  }
+
+  function displayResults(results) {
+
       searchResultsContainer.innerHTML = '';
-  
+      searchResultsContainer.style.display = "block";
+
       if (results.length === 0) {
-        searchResultsContainer.innerHTML = 'No results found.';
-        return;
+          searchResultsContainer.innerHTML = 'No results found.';
+          return;
       }
-  
+
       results.forEach(book => {
-        const bookElement = document.createElement('div');
-        bookElement.textContent = book.name; // You can customize this to display other book details
-        searchResultsContainer.appendChild(bookElement);
+        const card = document.createElement("div");
+        card.setAttribute("class", "card4");
+      
+        const name = document.createElement("a");
+        name.setAttribute(
+          "href",
+          `books/${book.id}}`
+        );
+        name.innerText = book.name;
+        card.appendChild(name);
+
+        searchResultsContainer.appendChild(card);
       });
-    }
-  });
+  }
+});

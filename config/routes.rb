@@ -40,9 +40,7 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   get '/logout', to: 'sessions#destroy', as: :logout
 
-  resources :books do
-    get 'search', on: :collection
-  end
+  get '/search', to: 'books#search', as: 'search_books'
 
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

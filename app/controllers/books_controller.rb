@@ -52,9 +52,15 @@ class BooksController < ApplicationController
       end
 
       def search
-        @query = params[:query]
 
-        @results = Book.where('name ILIKE ?', "%#{@query}%")
+        @books = Book.all
+
+        if params[:category].present?
+          @books = @books.where(category: params[:category])
+        end
+
+        render json: @books
+        
       end
       
 

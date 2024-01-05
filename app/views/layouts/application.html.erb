@@ -12,6 +12,56 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <%= javascript_include_tag 'search' %>
+
+    <style>
+     #bookSearch {
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      width: 250px;
+      box-sizing: border-box;
+      }
+
+    #search_result {
+	position: fixed;
+	top: 6.5%;
+	left: 0;
+	width: 50%;
+	height: 400px;
+	overflow: scroll;
+	margin: 0 20%;
+	display: none;
+	z-index: 9999;
+}
+
+#search_result::-webkit-scrollbar {
+	display: none;
+}
+
+.card4 {
+	background-color: #ffffff;
+	border-radius: 5px;
+	box-shadow: 5px 5px 10px #e6e6e6, -5px -5px 10px #ffffff;
+	margin-bottom: 0.5em;
+	padding: 1em;
+	transition: transform 0.2s ease-in-out;
+}
+
+.card4:hover {
+	transform: translateY(-5px);
+}
+
+.card4 a {
+	color: #333333;
+	font-size: 1rem;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+    </style>
     
   </head>
 
@@ -19,21 +69,29 @@
   
   
   <div id= "navbar"><p>library management</p>
-  <ul class="nav navbar-nav">
-  
-  </li>
-</ul>
+     <div>
+       <input type="text" id="bookSearch" placeholder="bookSearch">
+    </div>
 
   
 </div>
 
 
 
+
+
+
+
    <div id="app">
 
+   
+
      <%= render partial: 'shared/navbar' %>
-  
+
        <main id="main">
+
+
+       <div id="search_result"></div>
 
          <div class="container">
 
