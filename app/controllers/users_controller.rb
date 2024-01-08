@@ -4,13 +4,11 @@ class UsersController < ApplicationController
     def new
         @user= User.new
     end
-    def index
-        @borrows = Borrow.where(user_id: session[:user_id])
-    end
-
     
     def create
+        
         @user = User.new(user_params)
+
         if @user.save
             redirect_to login_path, notice: "success full rigister"
         else
@@ -23,14 +21,12 @@ class UsersController < ApplicationController
 
       def show
 
-        @user = User.find(session[:user_id])
+        @user = current_user
+
         @borrowed_books = @user.books
-        @find = Borrow.where(user_id: session[:user_id])
-        @lost_book= 0;
-        @find.each do |book|
-          @lost_book += book.lost_book_count
-        end  
+
       end
+      
     def borrowed_book
         
         user_id = session[:user_id]

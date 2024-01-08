@@ -1,9 +1,13 @@
 <%= stylesheet_link_tag 'book' %>
 <%= stylesheet_link_tag 'filter_form' %>
+
+
 <%= form_tag(books_path, method: :get, class: 'filter-form') do %>
   <%= select_tag(:category, options_for_select(['', 'Fiction', 'history', 'bio_graphical'])) %>
   <%= submit_tag('Filter') %>
 <% end %>
+
+
 
 <div class="body">
 
@@ -24,8 +28,8 @@
   </div>
   <div id="qiymet">
 
-  <% if book.available_book_count != 0 %>
-  <%= form_for Borrow.new, url: borrow_book_path(book), method: :post do |f| %>
+  <% if book.available_book_count >= 1 %>
+  <%= form_for Borrow.new, url: borrow_book_path(id: book.id), method: :post do |f| %>
     <%= f.hidden_field :return_book, value: false %>
     <%= f.hidden_field :borrow_date, value: Date.today %>
     <%= f.hidden_field :return_date, value: (Date.today + 10).to_s %>

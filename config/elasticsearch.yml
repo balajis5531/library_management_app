@@ -1,0 +1,12 @@
+development:
+  host: "localhost:9200"
+
+test:
+  host: "localhost:9200"
+
+production:
+  host: "127.0.0.1:9200"
+
+xpack.security.http.ssl.enabled: true
+xpack.security.http.ssl.keystore.path: /path/to/your/keystore.p12
+xpack.security.http.ssl.truststore.path: /path/to/your/truststore.p12

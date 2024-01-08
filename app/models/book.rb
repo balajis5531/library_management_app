@@ -1,6 +1,6 @@
 class Book < ApplicationRecord
-    
 
+    
     has_many :borrows
 
     validates :name, uniqueness: true,  presence: true

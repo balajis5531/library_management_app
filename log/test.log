@@ -1,0 +1,39 @@
+  [1m[35m (32.3ms)[0m  [1m[35mDROP DATABASE IF EXISTS `library_management_test`[0m
+  [1m[35m (2.1ms)[0m  [1m[35mCREATE DATABASE `library_management_test` DEFAULT CHARACTER SET `utf8mb4`[0m
+  [1m[35m (1.6ms)[0m  [1m[35mDROP TABLE IF EXISTS `books` CASCADE[0m
+  [1m[35m (49.3ms)[0m  [1m[35mCREATE TABLE `books` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `name` varchar(255), `image_url` varchar(255), `author` varchar(255), `description` text, `year_of_release` int, `category` varchar(255), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, `available_book_count` int) DEFAULT CHARSET=utf8mb4[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS `borrows` CASCADE[0m
+  [1m[35m (30.1ms)[0m  [1m[35mCREATE TABLE `borrows` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `user_id` bigint NOT NULL, `book_id` bigint NOT NULL, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, `borrow_date` date, `return_date` date, `returned_date` date, `borrow_count` int, `returned_count` int, `lost_book_count` int, `return_book` tinyint(1), INDEX `index_borrows_on_book_id` (`book_id`), INDEX `index_borrows_on_user_id` (`user_id`)) DEFAULT CHARSET=utf8mb4[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS `users` CASCADE[0m
+  [1m[35m (25.4ms)[0m  [1m[35mCREATE TABLE `users` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `username` varchar(255), `email` varchar(255), `password_digest` varchar(255), `mobile_number` varchar(255), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL) DEFAULT CHARSET=utf8mb4[0m
+  [1m[35m (51.6ms)[0m  [1m[35mALTER TABLE `borrows` ADD CONSTRAINT `fk_rails_979d14020c`
+FOREIGN KEY (`book_id`)
+  REFERENCES `books` (`id`)
+[0m
+  [1m[35m (33.7ms)[0m  [1m[35mALTER TABLE `borrows` ADD CONSTRAINT `fk_rails_4de2f604db`
+FOREIGN KEY (`user_id`)
+  REFERENCES `users` (`id`)
+[0m
+  [1m[35m (23.8ms)[0m  [1m[35mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL PRIMARY KEY)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (37.9ms)[0m  [1m[32mINSERT INTO `schema_migrations` (version) VALUES (20240103171945)[0m
+  [1m[35m (35.7ms)[0m  [1m[32mINSERT INTO `schema_migrations` (version) VALUES
+(20240103163524),
+(20240103163100),
+(20240103134356),
+(20240103125553),
+(20240103124848),
+(20231227054648),
+(20231226201250),
+(20231226185928);[0m
+  [1m[35m (81.6ms)[0m  [1m[35mCREATE TABLE `ar_internal_metadata` (`key` varchar(255) NOT NULL PRIMARY KEY, `value` varchar(255), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (2.6ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::InternalMetadata Create (1.3ms)[0m  [1m[32mINSERT INTO `ar_internal_metadata` (`key`, `value`, `created_at`, `updated_at`) VALUES ('environment', 'test', '2024-01-07 18:16:05.835082', '2024-01-07 18:16:05.835086')[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.9ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.6ms)[0m  [1m[32mINSERT INTO `ar_internal_metadata` (`key`, `value`, `created_at`, `updated_at`) VALUES ('schema_sha1', '7fbea35663cd643c185c43a8f22a56831fc7406e', '2024-01-07 18:16:05.878270', '2024-01-07 18:16:05.878274')[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.3ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.2ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.9ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m

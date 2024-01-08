@@ -10,7 +10,7 @@
   <p><strong>Name:</strong> <%= @user.username %></p>
   <p><strong>Email:</strong> <%= @user.email %></p>
   <p><strong>Mobile number:</strong> <%= @user. mobile_number%></p>
-  <p><strong>lost book fine:</strong> <%= @lost_book * 100%></p>
+
 
   
 </div>
@@ -35,13 +35,13 @@
         <div class= "buttons">
 
         <% if Borrow.exists?(user_id: session[:user_id], book_id: book.id, return_book: false) %>
-        <%= form_for Borrow.find_by(book_id: book.id), url: return_book_book_path(book), method: :patch do |f| %>
+        <%= form_for Borrow.find_by(book_id: book.id), url: return_book_book_path(id: book.id), method: :patch do |f| %>
           <%= f.hidden_field :return_book, value: true %>
               <%= f.submit "Return", class: "btn btn-warning" %>
          <% end %>
          <% end %>
          <% if Borrow.exists?(user_id: session[:user_id], book_id: book.id, return_book: false) %>
-         <%= form_for Borrow.find_by(book_id: book.id), url: lose_borrow_path(book), method: :patch do |f| %>
+         <%= form_for Borrow.find_by(book_id: book.id), url: lose_borrow_path(id: book.id), method: :patch do |f| %>
            <%= f.hidden_field :lose_book, value: true %>
                <%= f.submit "Lost", class: "btn btn-danger" %>
           <% end %>

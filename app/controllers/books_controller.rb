@@ -10,11 +10,21 @@ class BooksController < ApplicationController
     end
 
     def index
-        @books = Book.all
 
-        if params[:category].present?
-          @books = @books.where(category: params[:category])
-        end
+      if params[:query].present?
+
+        @books = Book.search(params[:query]).records
+
+      elsif params[:category].present?
+       @books = @books.where(category: params[:category])
+        
+      else
+        @books = Book.all
+      end
+      
+        
+
+      
     end
     
 
@@ -68,16 +78,16 @@ class BooksController < ApplicationController
 
     def set_book
         @book = Book.find(params[:id])
+
       rescue ActiveRecord::RecordNotFound
+
         flash[:alert] = 'Book not found.'
+        
         redirect_to books_path
       end
     
 
     def book_params
        params.require(:book).permit(:name, :image_url, :author, :description, :year_of_release, :category, :available_book_count)
-    end
-
-    def valid
     end
 end
