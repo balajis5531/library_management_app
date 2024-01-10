@@ -8,12 +8,12 @@ class SessionsController < ApplicationController
       if @user && @user.password_digest == (params[:password])
       reset_session
       log_in @user
+      UserMailer.welcome_email(@user).deliver_now
       redirect_to user_path(id: current_user)
       else
-        flash.now[:alert] = 'Invalid email or password.'
+        flash[:alert] = 'Invalid email or password.'
         redirect_to login_path
       end
-
   end    
 
   def destroy

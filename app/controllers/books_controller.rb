@@ -7,6 +7,13 @@ class BooksController < ApplicationController
 
     def admin_access
       @books = Book.all
+      @books_with_borrowers = Book.includes(:borrows, :users).all
+
+      # SELECT books.*, borrows.*, users.*
+      # FROM books
+      # LEFT JOIN borrows ON borrows.book_id = books.id
+      # LEFT JOIN users ON users.id = borrows.user_id
+
     end
 
     def index

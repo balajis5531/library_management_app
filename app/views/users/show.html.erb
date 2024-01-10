@@ -35,7 +35,7 @@
         <div class="card-title">Lost Book Count</div>
         <div class="card-title text-center text-danger fw-bold"><%= @user.lost_count %></div>
         <div class= "buttons">
-           
+           <p>Fine Amount : <%= @user.lost_count * 100%></p>
         </div>
     </div>
 
@@ -46,7 +46,7 @@
 
 <div class="mainContainer">
 <% @borrowed_books.each do |book| %>
-    <% if Borrow.exists?(user_id: session[:user_id], book_id: book.id, return_book: false) %>
+  <% if Borrow.exists?(user_id: session[:user_id], book_id: book.id, return_book: false) && Borrow.exists?(user_id: session[:user_id], book_id: book.id, lose_book: false) %>
     <div class="card" id="assembly-card">
         <div class="card-title"><%= book.name %></div>
         <div class= "buttons">
@@ -56,7 +56,7 @@
               <%= f.submit "Return", class: "btn btn-warning" %>
          <% end %>
          <% end %>
-         <% if Borrow.exists?(user_id: session[:user_id], book_id: book.id, return_book: false) %>
+         <% if Borrow.exists?(user_id:current_user.id, book_id: book.id, return_book: false) %>
          <%= form_for Borrow.find_by(book_id: book.id), url: lose_borrow_path(id: book.id), method: :patch do |f| %>
            <%= f.hidden_field :lose_book, value: true %>
                <%= f.submit "Lost", class: "btn btn-danger" %>

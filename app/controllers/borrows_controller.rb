@@ -10,7 +10,9 @@ class BorrowsController < ApplicationController
           borrow_date: Date.today,
           return_date: Date.today + 10,
           returned_date: nil,
-          return_book: false
+          return_book: false,
+          lose_book: false
+          
           )
           if @borrow.save
             flash[:success] = "Book borrowed successfully."
@@ -34,7 +36,7 @@ class BorrowsController < ApplicationController
             flash[:success] = "Book returned successfully."
             redirect_to root_path
           else
-            flash[:error] = 'Error returning the book.'
+            flash[:alert] = 'Error returning the book.'
             render :create
           end
       end
@@ -44,12 +46,12 @@ class BorrowsController < ApplicationController
         @borrow = Borrow.find_by(user_id: current_user.id, book_id: @book.id)
           if @borrow.update(
             returned_date: Date.today,
-            return_book: true
+            lose_book: true
           )
             flash[:success] = "Book returned successfully."
             redirect_to root_path
           else
-            flash[:error] = 'Error returning the book.'
+            flash[:alert] = 'Error returning the book.'
             render :create
           end  
       end
@@ -65,10 +67,6 @@ class BorrowsController < ApplicationController
         redirect_to books_path
       end
 
-      def update_book_and_user 
-        @book.update(available_book_count: @book.available_book_count - 1)
-        @user.update(borrow_count: @@user.borrow_count+1 , lost_count: 0 , return_count: 0) 
-      end
       
   end
   
