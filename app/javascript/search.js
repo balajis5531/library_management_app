@@ -2,12 +2,14 @@ document.addEventListener('DOMContentLoaded', function () {
   const bookSearchInput = document.getElementById('bookSearch');
   const searchResultsContainer = document.getElementById('search_result');
 
-  if (bookSearchInput && searchResultsContainer) {
+
+   if (bookSearchInput && searchResultsContainer) {
       
       fetch('/search')
           .then(response => response.json())
           .then(books => {
               bookSearchInput.addEventListener('input', function () {
+                
                   const searchQuery = this.value.trim().toLowerCase();
                   const searchResults = books.filter(book => book.name.toLowerCase().includes(searchQuery));
 

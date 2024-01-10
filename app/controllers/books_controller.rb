@@ -12,12 +12,9 @@ class BooksController < ApplicationController
     def index
 
       if params[:query].present?
-
         @books = Book.search(params[:query]).records
-
       elsif params[:category].present?
-       @books = @books.where(category: params[:category])
-        
+       @books = @books.where(category: params[:category])  
       else
         @books = Book.all
       end
@@ -46,8 +43,7 @@ class BooksController < ApplicationController
 
     
     def update
-        if @book.update(book_params)
-            
+        if @book.update(book_params)   
           redirect_to books_path, notice: 'Book was successfully updated.'
         else
           render :edit
@@ -55,22 +51,16 @@ class BooksController < ApplicationController
       end
     
       def destroy
-
         @book.destroy
-
         redirect_to new_book_path, notice: 'Book was successfully deleted.'
       end
 
       def search
-
         @books = Book.all
-
         if params[:category].present?
           @books = @books.where(category: params[:category])
         end
-
-        render json: @books
-        
+        render json: @books  
       end
       
 
@@ -78,15 +68,11 @@ class BooksController < ApplicationController
 
     def set_book
         @book = Book.find(params[:id])
-
       rescue ActiveRecord::RecordNotFound
-
         flash[:alert] = 'Book not found.'
-        
         redirect_to books_path
       end
     
-
     def book_params
        params.require(:book).permit(:name, :image_url, :author, :description, :year_of_release, :category, :available_book_count)
     end

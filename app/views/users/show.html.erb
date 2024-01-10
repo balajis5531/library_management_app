@@ -10,9 +10,6 @@
   <p><strong>Name:</strong> <%= @user.username %></p>
   <p><strong>Email:</strong> <%= @user.email %></p>
   <p><strong>Mobile number:</strong> <%= @user. mobile_number%></p>
-
-
-  
 </div>
 
 <%= link_to 'Edit Profile', edit_user_path(@user), class: 'edit-profile-link' %>
@@ -21,19 +18,38 @@
 
 </div>
 
+<div class="mainContainer">
+
+    
+    <div class="card" id="assembly-card">
+        <div class="card-title">Borrow Book Count</div>
+        <div class="card-title text-center text-success fw-bold"><%= @user.borrow_count %></div>
+        
+    </div>
+    <div class="card" id="assembly-card">
+        <div class="card-title">Return Book Count</div>
+        <div class="card-title text-center fw-bold text-primary"><%= @user.return_count %></div>
+        
+    </div>
+    <div class="card" id="assembly-card">
+        <div class="card-title">Lost Book Count</div>
+        <div class="card-title text-center text-danger fw-bold"><%= @user.lost_count %></div>
+        <div class= "buttons">
+           
+        </div>
+    </div>
+
+</div>
+
 
 <h3>Current Borrowed Books</h3>
 
 <div class="mainContainer">
 <% @borrowed_books.each do |book| %>
-
     <% if Borrow.exists?(user_id: session[:user_id], book_id: book.id, return_book: false) %>
-
     <div class="card" id="assembly-card">
         <div class="card-title"><%= book.name %></div>
-
         <div class= "buttons">
-
         <% if Borrow.exists?(user_id: session[:user_id], book_id: book.id, return_book: false) %>
         <%= form_for Borrow.find_by(book_id: book.id), url: return_book_book_path(id: book.id), method: :patch do |f| %>
           <%= f.hidden_field :return_book, value: true %>

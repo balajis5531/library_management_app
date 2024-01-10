@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_07_192316) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_09_045717) do
   create_table "books", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.string "image_url"
@@ -46,6 +46,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_07_192316) do
     t.integer "borrow_count"
     t.integer "lost_count"
     t.integer "return_count", default: 0
+    t.boolean "role"
   end
 
   add_foreign_key "borrows", "books"
