@@ -1,4 +1,10 @@
 <%= stylesheet_link_tag 'borrowed_list' %>
+<% if flash[:alert] %>
+    <p class="alert"><%= flash[:alert] %></p>
+  <% end %>
+  <% if flash[:success] %>
+    <p class="alert"><%= flash[:alert] %></p>
+  <% end %>
 <h3>Borrowed books</h3>
 <div class="mainContainer">
 

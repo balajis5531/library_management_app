@@ -21,7 +21,7 @@ class BooksController < ApplicationController
       if params[:query].present?
         @books = Book.search(params[:query]).records
       elsif params[:category].present?
-       @books = @books.where(category: params[:category])  
+       @books = Book.where(category: params[:category])  
       else
         @books = Book.all
       end

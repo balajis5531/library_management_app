@@ -4,6 +4,12 @@
 
 
 <div class="profile-container">
+<% if flash[:alert] %>
+    <p class="alert"><%= flash[:alert] %></p>
+  <% end %>
+  <% if flash[:success] %>
+    <p class="alert"><%= flash[:alert] %></p>
+  <% end %>
 <h1>User Profile</h1>
 
 <div class="user-info">
