@@ -20,7 +20,7 @@
           <td><%= book.author %></td>
           <td><%= book.available_book_count %></td>
           <td>
-            <%= link_to 'Edit', edit_book_path(book), class: 'btn btn-primary btn-sm' %>
+            <%= link_to 'Edit', edit_book_path(id: book.id), class: 'btn btn-primary btn-sm' %>
             
           </td>
           <td>
@@ -36,4 +36,46 @@
 <% else %>
   <p>No books added yet.</p>
 <% end %>
+
+<h3>users details</h3>
+
+
+<% if @books_with_borrowers.count >= 1 %>
+  <table class="table table-bordered">
+    <thead class="thead-dark">
+      <tr>
+        <th>id</th>
+        <th>User</th>
+        <th>Book</th>
+        <th>Status</th>
+        <th>Borrow Count</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @books_with_borrowers.each do |book| %>
+        <% book.borrows.each do |borrow| %>
+          <tr>
+            <td><%=borrow.id%></td>
+
+            <td>user id : <%= borrow.user.id%> name:  <%= borrow.user.username %></td>
+            <td><%= book.name %></td>
+            <td>
+              <% if borrow.returned_date.present? %>
+                Returned
+              <% elsif borrow.lose_book.present? %>
+                Lost
+              <% else %>
+                Borrowed
+              <% end %>
+            </td>
+            <td><%= borrow.user.borrow_count %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No books added yet.</p>
+<% end %>
+
 

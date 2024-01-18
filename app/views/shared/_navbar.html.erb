@@ -16,7 +16,7 @@
         <span class="item-text">Books</span>
       </a>
     </li>
-    <% if session[:user_id] %>
+    <% if current_user %>
     <li class="item" title="shopping cart">
       <a href="/users/<%=session[:user_id]%>/borrowed_book" class="hyper-link">
         <div class="icon-wrapper">
@@ -49,7 +49,8 @@
   
   <% end %>
 
-  <% if session[:user_id] == 2%>
+  <% if current_user %>
+  <% if current_user.role %>
   <li class="item">
     <a href="/books/show/admin_access" class="hyper-link">
       <div class="icon-wrapper">
@@ -58,6 +59,7 @@
       <span class="item-text">Admin</span>
     </a>
   </li>
+    <% end %>
   <% end %>
 </ul>
  

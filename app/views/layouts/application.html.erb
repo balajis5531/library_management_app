@@ -10,6 +10,7 @@
     <%= javascript_importmap_tags %>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-GLhlTQ8i6U+PeOFW+Xq1TGKUZfiqNKEl7Ff5qLZx9vqHtSHflbDx4me1feUQsFjW" crossorigin="anonymous">
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
@@ -60,6 +61,20 @@
 	font-weight: bold;
 	text-decoration: none;
 }
+.search-container {
+  position: relative;
+}
+
+  padding-right: 30px; /* Adjust the padding to make room for the icon */
+}
+
+.fa-search {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
 
     </style>
     
@@ -69,10 +84,10 @@
   
   
   <div id= "navbar"><p>library management</p>
-     <div>
-       <input type="text" id="bookSearch" placeholder="bookSearch">
-    </div>
-
+  <div class="search-container">
+  <input type="text" id="bookSearch" placeholder="Search books">
+  <i class="fa fa-search"></i>
+</div>
   
 </div>
 

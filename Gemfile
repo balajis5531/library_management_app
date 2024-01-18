@@ -48,6 +48,12 @@ gem 'mysql2'
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
 
+# rake file \
+gem 'rake', '~> 13.0'
+
+#sidekiq
+gem 'sidekiq'
+
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 

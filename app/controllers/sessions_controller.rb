@@ -4,14 +4,13 @@ class SessionsController < ApplicationController
   end
 
   def create
-
       @user = User.find_by(email: params[:email])
-    
       if @user && @user.password_digest == (params[:password])
-        session[:user_id] = @user.id
-        redirect_to root_path, notice: 'Logged in successfully.'
+      reset_session
+      log_in @user
+      redirect_to user_path(id: current_user)
       else
-        flash.now[:alert] = 'Invalid email or password.'
+        flash[:alert] = 'Invalid email or password.'
         redirect_to login_path
       end
   end    
@@ -21,11 +20,6 @@ class SessionsController < ApplicationController
     redirect_to root_path, notice: 'Logged out successfully.'
   end
 
-  private
-
-  def log_out
-
-    session.delete(:user_id)
-  end
+ 
 
 end

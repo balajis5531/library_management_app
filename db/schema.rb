@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_03_171945) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_10_190113) do
   create_table "books", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.string "image_url"
@@ -31,10 +31,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_03_171945) do
     t.date "borrow_date"
     t.date "return_date"
     t.date "returned_date"
-    t.integer "borrow_count"
-    t.integer "returned_count"
-    t.integer "lost_book_count"
     t.boolean "return_book"
+    t.boolean "lose_book"
     t.index ["book_id"], name: "index_borrows_on_book_id"
     t.index ["user_id"], name: "index_borrows_on_user_id"
   end
@@ -46,6 +44,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_03_171945) do
     t.string "mobile_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "borrow_count"
+    t.integer "lost_count"
+    t.integer "return_count", default: 0
+    t.boolean "role"
   end
 
   add_foreign_key "borrows", "books"

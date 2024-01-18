@@ -7,14 +7,28 @@ class BooksController < ApplicationController
 
     def admin_access
       @books = Book.all
+      @books_with_borrowers = Book.includes(:borrows, :users).all
+
+      # SELECT books.*, borrows.*, users.*
+      # FROM books
+      # LEFT JOIN borrows ON borrows.book_id = books.id
+      # LEFT JOIN users ON users.id = borrows.user_id
+
     end
 
     def index
-        @books = Book.all
 
-        if params[:category].present?
-          @books = @books.where(category: params[:category])
-        end
+      if params[:query].present?
+        @books = Book.search(params[:query]).records
+      elsif params[:category].present?
+       @books = Book.where(category: params[:category])  
+      else
+        @books = Book.all
+      end
+      
+        
+
+      
     end
     
 
@@ -36,8 +50,7 @@ class BooksController < ApplicationController
 
     
     def update
-        if @book.update(book_params)
-            
+        if @book.update(book_params)   
           redirect_to books_path, notice: 'Book was successfully updated.'
         else
           render :edit
@@ -45,22 +58,16 @@ class BooksController < ApplicationController
       end
     
       def destroy
-
         @book.destroy
-
         redirect_to new_book_path, notice: 'Book was successfully deleted.'
       end
 
       def search
-
         @books = Book.all
-
         if params[:category].present?
           @books = @books.where(category: params[:category])
         end
-
-        render json: @books
-        
+        render json: @books  
       end
       
 
@@ -73,7 +80,6 @@ class BooksController < ApplicationController
         redirect_to books_path
       end
     
-
     def book_params
        params.require(:book).permit(:name, :image_url, :author, :description, :year_of_release, :category, :available_book_count)
     end

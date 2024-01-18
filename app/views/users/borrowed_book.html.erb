@@ -1,10 +1,16 @@
 <%= stylesheet_link_tag 'borrowed_list' %>
+<% if flash[:alert] %>
+    <p class="alert"><%= flash[:alert] %></p>
+  <% end %>
+  <% if flash[:success] %>
+    <p class="alert"><%= flash[:alert] %></p>
+  <% end %>
 <h3>Borrowed books</h3>
 <div class="mainContainer">
 
    <% @borrowed_books.each do |book| %>
 
-      <% if Borrow.exists?(user_id: session[:user_id], book_id: book.id, return_book: false) %>
+      <% if Borrow.exists?(user_id: session[:user_id], book_id: book.id, return_book: false) && Borrow.exists?(user_id: session[:user_id], book_id: book.id, lose_book: false) %>
 
 		      <div class="card" id="assembly-card">
 			      <div class="card-title"><%= book.name %></div>
@@ -26,7 +32,7 @@
 
    <% @borrowed_books.each do |book| %>
 
-      <% if Borrow.exists?(user_id: session[:user_id], book_id: book.id, return_book: true) %>
+      <% if Borrow.exists?(user_id: session[:user_id], book_id: book.id, return_book: true) || Borrow.exists?(user_id: session[:user_id], book_id: book.id, lose_book: true) %>
 
 		      <div class="card" id="assembly-card">
 			    <div class="card-title"><%= book.name %></div>

@@ -4,15 +4,18 @@
 
 
 <div class="profile-container">
+<% if flash[:alert] %>
+    <p class="alert"><%= flash[:alert] %></p>
+  <% end %>
+  <% if flash[:success] %>
+    <p class="alert"><%= flash[:alert] %></p>
+  <% end %>
 <h1>User Profile</h1>
 
 <div class="user-info">
   <p><strong>Name:</strong> <%= @user.username %></p>
   <p><strong>Email:</strong> <%= @user.email %></p>
   <p><strong>Mobile number:</strong> <%= @user. mobile_number%></p>
-  <p><strong>lost book fine:</strong> <%= @lost_book * 100%></p>
-
-  
 </div>
 
 <%= link_to 'Edit Profile', edit_user_path(@user), class: 'edit-profile-link' %>
@@ -21,27 +24,46 @@
 
 </div>
 
+<div class="mainContainer">
+
+    
+    <div class="card" id="assembly-card">
+        <div class="card-title">Borrow Book Count</div>
+        <div class="card-title text-center text-success fw-bold"><%= @user.borrow_count %></div>
+        
+    </div>
+    <div class="card" id="assembly-card">
+        <div class="card-title">Return Book Count</div>
+        <div class="card-title text-center fw-bold text-primary"><%= @user.return_count %></div>
+        
+    </div>
+    <div class="card" id="assembly-card">
+        <div class="card-title">Lost Book Count</div>
+        <div class="card-title text-center text-danger fw-bold"><%= @user.lost_count %></div>
+        <div class= "buttons">
+           <p>Fine Amount : <%= @user.lost_count * 100%></p>
+        </div>
+    </div>
+
+</div>
+
 
 <h3>Current Borrowed Books</h3>
 
 <div class="mainContainer">
 <% @borrowed_books.each do |book| %>
-
-    <% if Borrow.exists?(user_id: session[:user_id], book_id: book.id, return_book: false) %>
-
+  <% if Borrow.exists?(user_id: session[:user_id], book_id: book.id, return_book: false) && Borrow.exists?(user_id: session[:user_id], book_id: book.id, lose_book: false) %>
     <div class="card" id="assembly-card">
         <div class="card-title"><%= book.name %></div>
-
         <div class= "buttons">
-
         <% if Borrow.exists?(user_id: session[:user_id], book_id: book.id, return_book: false) %>
-        <%= form_for Borrow.find_by(book_id: book.id), url: return_book_book_path(book), method: :patch do |f| %>
+        <%= form_for Borrow.find_by(book_id: book.id), url: return_book_book_path(id: book.id), method: :patch do |f| %>
           <%= f.hidden_field :return_book, value: true %>
               <%= f.submit "Return", class: "btn btn-warning" %>
          <% end %>
          <% end %>
-         <% if Borrow.exists?(user_id: session[:user_id], book_id: book.id, return_book: false) %>
-         <%= form_for Borrow.find_by(book_id: book.id), url: lose_borrow_path(book), method: :patch do |f| %>
+         <% if Borrow.exists?(user_id:current_user.id, book_id: book.id, return_book: false) %>
+         <%= form_for Borrow.find_by(book_id: book.id), url: lose_borrow_path(id: book.id), method: :patch do |f| %>
            <%= f.hidden_field :lose_book, value: true %>
                <%= f.submit "Lost", class: "btn btn-danger" %>
           <% end %>
